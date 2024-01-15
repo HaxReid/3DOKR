@@ -1,4 +1,4 @@
-# 3DOKR Benjamin MAURY / Paul-Etienne Guérin
+# 3DOKR 
 
 Voici un README pour la création d'un cluster Docker Swarm et des raisons qui nous ont poussé à mettre les images sur Docker Hub plutôt que d'appeler les Dockerfiles dans le Docker Compose.
 
