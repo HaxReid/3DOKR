@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:latest
+    deploy:
+      mode: replicated
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data  
+
+  redis:
+    image: redis:latest
+    deploy:
+      mode: replicated
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data  
+
+  result:
+    image: haxreid666/projet-result:latest
+    deploy:
+      mode: replicated
+    ports:
+      - "8888:8888"
+    depends_on:
+      - postgres
+
+  vote:
+    image: haxreid666/projet-vote:latest
+    deploy:
+      mode: replicated
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+
+  worker:
+    image: haxreid666/projet-worker:latest
+    deploy:
+      mode: replicated
+    depends_on:
+      - redis
+      - postgres
+
+volumes:
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+
